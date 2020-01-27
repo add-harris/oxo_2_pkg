@@ -1,10 +1,7 @@
 # to run unit tests run 'python -m unittest test.test_methods' from project home directory
 
-import io
-import sys
 import unittest
 from mock import patch
-# from contextlib import redirect_stdout
 import StringIO
 
 from oxo_2_pkg.utils.methods import *
@@ -16,7 +13,7 @@ def fill_grid(grid, move_keys, value):
 
 
 def remove_move_keys(move_keys):
-    some_move_keys = all_move_keys.copy()
+    some_move_keys = list(all_move_keys)
     for key in move_keys:
         some_move_keys.remove(key)
     return some_move_keys
@@ -26,8 +23,8 @@ def redirect_output():
     sys.stdout = redirected_output
     return redirected_output
 
-def return_output_to_normal():
-    sys.stdout = sys.__stdout__
+# def return_output_to_normal():
+#     sys.stdout = sys.__stdout__
 
 class TestMethods(unittest.TestCase):
 
@@ -134,29 +131,27 @@ class TestMethods(unittest.TestCase):
 
     @patch('oxo_2_pkg.utils.methods.play_again')
     def test_check_for_win_wrapper_x(self, mock_play_again):
+        redirected_output = redirect_output()
 
         game = Grid()
         made_moves = possible_wins[0]
         fill_grid(game, made_moves, "X")
 
-        redirected_output = io.StringIO()
-        with redirect_output(redirected_output):
 
-            check_for_win_wrapper(game, "congratulations! %s's win")
+        check_for_win_wrapper(game, "congratulations! %s's win")
 
         self.assertIn("congratulations! X's win", redirected_output.getvalue())
         mock_play_again.assert_called()
 
     @patch('oxo_2_pkg.utils.methods.play_again')
     def test_check_for_win_wrapper_o(self, mock_play_again):
+        redirected_output = redirect_output()
 
         game = Grid()
         made_moves = possible_wins[1]
         fill_grid(game, made_moves, "O")
 
-        redirected_output = io.StringIO()
-        with redirect_output(redirected_output):
-            check_for_win_wrapper(game, "you lose! %s's win")
+        check_for_win_wrapper(game, "you lose! %s's win")
 
         self.assertIn("you lose! O's win", redirected_output.getvalue())
         mock_play_again.assert_called()
@@ -181,14 +176,14 @@ class TestMethods(unittest.TestCase):
         mock_play_again.assert_called()
 
     def test_check_for_draw_false(self):
+        redirected_output = redirect_output()
 
         game = Grid()
         setattr(game, "topLeft", Move( "topLeft", "X"))
         setattr(game, "bottomRight", Move( "bottomRight", "O"))
 
-        redirected_output = io.StringIO()
-        with redirect_output(redirected_output):
-            check_for_win_wrapper(game, "any string %s")
+
+        check_for_win_wrapper(game, "any string %s")
 
         self.assertEqual("", redirected_output.getvalue())
 

@@ -76,7 +76,7 @@ def run():
                     if move_helper["boolean"]:
                         show_available_moves(game)
                     else:
-                        move_helper = True
+                        move_helper["boolean"] = True
 
                     turn()
             else:
@@ -85,7 +85,7 @@ def run():
                 if input_helper["boolean"]:
                     show_available_inputs()
                 else:
-                    input_helper = True
+                    input_helper["boolean"] = True
 
                 turn()
         except KeyboardInterrupt:
