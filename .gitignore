@@ -1,0 +1,11 @@
+.idea/
+build/
+bin/
+dist/
+lib/
+include/
+oxo_pkg.egg-info/
+venv/
+.Python
+*.pyc
+**/__pycache__
