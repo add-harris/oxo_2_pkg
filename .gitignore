@@ -4,7 +4,7 @@ bin/
 dist/
 lib/
 include/
-oxo_pkg.egg-info/
+oxo_2_pkg.egg-info/
 venv/
 .Python
 *.pyc
