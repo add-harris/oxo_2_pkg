@@ -1,8 +1,10 @@
 # OXO
 
-A naughts & crosses game.
+**oxo_pkg ported for python 2.7**
 
-##### *note: requires python version >= 3.6*
+A naughts & crosses game 
+
+##### *note: requires python version >= 2.7*
 
 # Install
 
